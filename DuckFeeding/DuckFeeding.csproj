@@ -10,5 +10,6 @@
 
   <ItemGroup>
     <None Remove="Models\DuckFeedingRecord.css" />
+    <None Remove="Models\User.css" />
   </ItemGroup>
 </Project>

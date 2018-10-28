@@ -3,8 +3,7 @@ namespace DuckFeeding.Models
 {
     public class User
     {
-        public User()
-        {
-        }
+        public string UserName { get; set; }
+        public string PassWord { get; set; }
     }
 }
