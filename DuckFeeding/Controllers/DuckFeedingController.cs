@@ -12,6 +12,7 @@ namespace DuckFeeding.Controllers
     {
         private readonly DuckFeedingContext _context;
 
+        // Using Stream Reader to restore previously inserted data - stored in context
         // Initialize the records list
 
         public DuckFeedingController(DuckFeedingContext context)
@@ -24,6 +25,9 @@ namespace DuckFeeding.Controllers
                 _context.DuckFeedingRecords.Remove(tmp);
                 _context.SaveChanges();
             }
+
+            //To prevent saving duplicate data, check if it is not loaded before
+
             if (System.IO.File.Exists("/users/namb/Documents/duckFeedingDB.csv") && _context.DuckFeedingRecords.Count() == 0)
             {
                 StreamReader sr = new StreamReader("/users/namb/Documents/duckFeedingDB.csv");
@@ -132,23 +136,6 @@ namespace DuckFeeding.Controllers
                 _context.SaveChanges();
             }
             sw.Close();
-        }
-
-
-    }
-
-    //Check username and password to login
-
-    [Route("api/Login")]
-    [ApiController]
-    public class LoginController : ControllerBase 
-    {
-        [HttpPost]
-        public bool Create(User user)
-        {
-            if (user.UserName == "admin" && user.PassWord == "admin")
-                return true;
-            return false;
         }
     }
 }

@@ -1,35 +1,32 @@
 ﻿
 const uri = 'api/duckfeeding';
-const uri2 = 'api/login'
 let records = null;
 
 
 $(document).ready(function () {
+    $("#period").prop('disabled', true);
+    $('.results').hide();
+});
 
-
+$('#repeat').change(function(){
+    if($("#repeat").is(':checked') == true )
+        $("#period").prop('disabled', false);
+    else 
+        $("#period").prop('disabled', true);
 });
 
 function login(){
-    const user = {
-        'username' : $('#username').val(),
-        'password' : $('#password').val()
-    };
-    $.ajax({
-    type: 'POST',
-    accepts: 'application/json',
-    url: uri2,
-    contentType: 'application/json',
-    data: JSON.stringify(user),
-    error: function (jqXHR, textStatus, errorThrown) {
-        alert('Some Error Happened in JS login!');
-    },
-    success: function (result) {
-
+if($('#username').val()=="admin" && $('#password').val()=="admin")
+    {
         getData();
+        $('.results').show();
         $('#username').val('');
         $('#password').val('');
     }
-    });
+    else
+    {
+    alert('Incorrect Username or Password');
+    }
 }
 
 function getData() {
