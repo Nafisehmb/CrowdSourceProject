@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using DuckFeeding.Models;
 using System.IO;
-
+using System;
 namespace DuckFeeding.Controllers 
 {
     [Route("api/DuckFeeding")]
@@ -11,7 +11,7 @@ namespace DuckFeeding.Controllers
     public class DuckFeedingController : ControllerBase
     {
         private readonly DuckFeedingContext _context;
-
+        public string path = AppDomain.CurrentDomain.BaseDirectory;
         // Using Stream Reader to restore previously inserted data - stored in context
         // Initialize the records list
 
@@ -28,9 +28,9 @@ namespace DuckFeeding.Controllers
 
             //To prevent saving duplicate data, check if it is not loaded before
 
-            if (System.IO.File.Exists("/users/namb/Documents/duckFeedingDB.csv") && _context.DuckFeedingRecords.Count() == 0)
+            if (System.IO.File.Exists(String.Concat(path, "/duckFeedingDB.csv")) && _context.DuckFeedingRecords.Count() == 0)
             {
-                StreamReader sr = new StreamReader("/users/namb/Documents/duckFeedingDB.csv");
+                StreamReader sr = new StreamReader(String.Concat(path, "/duckFeedingDB.csv"));
                 string str = sr.ReadLine();//first line is header
                 str = sr.ReadLine();
                 while (str != null)
@@ -113,7 +113,7 @@ namespace DuckFeeding.Controllers
         // Using Stream Writer to store inserted data
         public void AddToFile(DuckFeedingRecord recorditem)
         {
-            StreamWriter sw = new StreamWriter("/users/namb/Documents/duckFeedingDB.csv");
+            StreamWriter sw = new StreamWriter(String.Concat( path,"/duckFeedingDB.csv"));
             sw.WriteLine(string.Concat("Id", ",", "Time", ",", "Food",
                                           ",", "Location", ",", ",", "Count", "FoodAmount", ",", "FoodType", ",isPeriodic", ",", "Period"));
             int count = _context.DuckFeedingRecords.Count();

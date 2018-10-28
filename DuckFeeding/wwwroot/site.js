@@ -44,7 +44,7 @@ function getData() {
                     '<td><input diabled="true" readonly="readonly" type="text" value="' + item.count + '"></td> '+
                     '<td><input diabled="true" readonly="readonly" type="text" value="' + item.foodType + '"></td> '+
                     '<td><input diabled="true" readonly="readonly" type="text" value="' + item.foodAmount + '"></td> '+
-                ' <td><input disabled="true" type="checkbox" value="' + checked + '"></td>' +
+                ' <td><input disabled="true" type="checkbox" ' + checked + '></td>' +
                     '<td><input diabled="true" type="text" value="' + item.period + '"></td>' +
                     '</tr>').appendTo($('#records'));
             });
